@@ -1,17 +1,26 @@
 const express = require('express')
 const router = express.Router()
-const {formidable} = require('formidable')
+const posts = require('../schema.js')
 
-router.post('/post', async (req, res, next) => {
-    const form = formidable({})
-    form.parse(req, (err, fields, files) => {
-        console.log(req)
-        if (err) {
-            next(err)
-            return;
-        }
-        res.json({ fields, files })
-    })
+router.post('/post', async (req, res) => {
+    try {
+        await posts.create({
+            "title": req.body.caption,
+            "description": req.body.description
+        })
+        res.send("post added successfully")
+    }
+    catch (err) {
+        console.log(err)
+    }
+
 })
+
+router.get('/getm', async (req, res) => {
+    let data = await posts.find({})
+    res.send(data)
+})
+
+
 
 module.exports = router
