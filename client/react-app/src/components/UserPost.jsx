@@ -1,5 +1,4 @@
 import { useState } from "react"
-import DisplayPost from "./DisplayPost"
 import {Link} from 'react-router-dom'
 
 const UserPost = () => {
@@ -40,7 +39,7 @@ const UserPost = () => {
     return (
         <>
             <h1>Add your posts</h1>
-            <Link to='/displaypost'>Display posts</Link>
+            <Link to='/displaypost' className="btn btn-primary">Display posts</Link>
             <div>
                 <form>
                     <div className="row mb-3">
@@ -56,7 +55,7 @@ const UserPost = () => {
                         </div>
                     </div>
                     <div class="col-auto">
-                        <button type="button" class="btn btn-primary mb-3" onClick={addPost}>Add Post</button>
+                        <button type="button" class="btn btn-primary mb-3 ml-3" onClick={addPost}>Add Post</button>
                     </div>
                 </form>
 

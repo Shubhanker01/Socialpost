@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const posts = require('../schema.js')
 
+// to create a new post
 router.post('/post', async (req, res) => {
     try {
         await posts.create({
@@ -17,6 +18,7 @@ router.post('/post', async (req, res) => {
 
 })
 
+// to get all the posts by the user
 router.get('/getposts', async (req, res) => {
     try {
         let data = await posts.find({})
@@ -48,4 +50,39 @@ router.post('/update/:id', async (req, res) => {
         console.log(error)
     }
 })
+
+// updating likes of the post
+router.post('/likes/:id', async (req, res) => {
+    try {
+        let data = await posts.findById(req.params.id)
+        data.likes = data.likes + 1
+        await data.save()
+        res.send("You liked this post")
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+// adding the comments to the post
+router.post('/comments/:id', async (req, res) => {
+    try {
+        let data = await posts.findById(req.params.id)
+        data.comments.push(req.body.comment)
+        await data.save()
+        res.send("You added a comment")
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+// getting comments
+router.get('/showcomments/:id',async (req,res)=>{
+    try {
+        let data = await posts.findById(req.params.id)
+        res.send(data.comments)
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 module.exports = router

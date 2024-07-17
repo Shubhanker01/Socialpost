@@ -4,13 +4,13 @@ require('dotenv').config()
 const app = express()
 const cors = require('cors')
 const port = 3000
-const post = require('./Routes/addpost')
+const post = require('./Routes/postroutes')
 const bodyParser = require('body-parser')
 
 app.use(cors())
 app.use(bodyParser.urlencoded({extended:false}))
 app.get('/', (req, res) => {
-    res.send("This is too much")
+    res.send("Hello world")
 })
 
 app.use('/',post)
